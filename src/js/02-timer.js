@@ -12,6 +12,7 @@ const textDays = document.querySelector('[data-days]');
 const textHours = document.querySelector('[data-hours]');
 const textMinutes = document.querySelector('[data-minutes]');
 const textSeconds = document.querySelector('[data-seconds]');
+let endTime = null;
 buttonStart.disabled = true;
 
 const options = {
@@ -25,10 +26,7 @@ const options = {
 			Notiflix.Notify.failure("Please choose a date in the future");
 			return;
 		}
-		textDays.textContent = pad(selectedDates[0].getDay());
-		textHours.textContent = pad(selectedDates[0].getHours());
-		textMinutes.textContent = pad(selectedDates[0].getMinutes());
-		textSeconds.textContent = pad(selectedDates[0].getSeconds());
+		endTime = Date.parse(selectedDates[0]);
 		buttonStart.disabled = false;
 	},
 };
@@ -36,10 +34,9 @@ flatpickr(selector, options);
 buttonStart.addEventListener('click', onCountTime);
 function onCountTime() {
 
-	const startTime = Date.now();
 	setInterval(() => {
 		const currentTime = Date.now();
-		const deltaTime = currentTime - startTime;
+		const deltaTime = endTime - currentTime;
 		const time = convertMs(deltaTime);
 		updateClock(time);
 	}, 1000);
@@ -67,9 +64,9 @@ function pad(value) {
 	return String(value).padStart(2, '0');
 }
 function updateClock({ days, hours, minutes, seconds }) {
-	console.log(minutes);
 	textDays.textContent = days;
 	textHours.textContent = hours;
-	textMinutes.textContent = textMinutes.textContent;
+	textMinutes.textContent = minutes;
 	textSeconds.textContent = seconds;
+
 }
