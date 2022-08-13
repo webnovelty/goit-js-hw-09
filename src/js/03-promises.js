@@ -11,7 +11,7 @@ function addDataForm(e) {
 buttonCreatePromise.addEventListener('click', onSubmitPromise);
 function onSubmitPromise(e) {
 	e.preventDefault();
-	for (i = 0; i < formData['amount']; i += 1) {
+	for (let i = 0; i < formData['amount']; i += 1) {
 		createPromise(i + 1, formData['delay'])
 			.then(result => Notiflix.Notify.success(result))
 			.catch(error => Notiflix.Notify.failure(error));
