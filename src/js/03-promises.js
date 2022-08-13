@@ -8,7 +8,6 @@ form.addEventListener('input', addDataForm);
 function addDataForm(e) {
 	formData[e.target.name] = Number(e.target.value);
 }
-
 buttonCreatePromise.addEventListener('click', onSubmitPromise);
 function onSubmitPromise(e) {
 	e.preventDefault();
@@ -19,11 +18,7 @@ function onSubmitPromise(e) {
 		formData['delay'] += formData['step'];
 
 	}
-
-
 }
-
-
 const createPromise = (position, delay) => {
 
 
@@ -39,7 +34,5 @@ const createPromise = (position, delay) => {
 		}, delay);
 
 	});
-
-
 }
 

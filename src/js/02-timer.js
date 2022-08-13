@@ -16,6 +16,8 @@ let endTime = null;
 let timerId = null;
 buttonStart.disabled = true;
 
+
+
 const options = {
 	enableTime: true,
 	time_24hr: true,
@@ -29,19 +31,21 @@ const options = {
 		}
 		endTime = Date.parse(selectedDates[0]);
 		buttonStart.disabled = false;
+
 	},
 };
 flatpickr(selector, options);
 buttonStart.addEventListener('click', onCountTime);
 function onCountTime() {
-
+	selector.disabled = true;
+	buttonStart.disabled = true;
 	timerId = setInterval(() => {
 		const currentTime = Date.now();
 		const deltaTime = endTime - currentTime;
 		const time = convertMs(deltaTime);
-		if (deltaTime <= 0) {
+		if (deltaTime < 0) {
 			clearInterval(timerId);
-
+			return;
 		}
 		updateClock(time);
 
