@@ -13,6 +13,7 @@ const textHours = document.querySelector('[data-hours]');
 const textMinutes = document.querySelector('[data-minutes]');
 const textSeconds = document.querySelector('[data-seconds]');
 let endTime = null;
+let timerId = null;
 buttonStart.disabled = true;
 
 const options = {
@@ -34,12 +35,20 @@ flatpickr(selector, options);
 buttonStart.addEventListener('click', onCountTime);
 function onCountTime() {
 
-	setInterval(() => {
+	timerId = setInterval(() => {
 		const currentTime = Date.now();
 		const deltaTime = endTime - currentTime;
 		const time = convertMs(deltaTime);
+		if (deltaTime <= 0) {
+			clearInterval(timerId);
+
+		}
 		updateClock(time);
+
+
+
 	}, 1000);
+
 }
 
 function convertMs(ms) {
